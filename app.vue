@@ -1,0 +1,4 @@
+<template>
+  <TheNav />
+  <NuxtPage />
+</template>
