@@ -2,21 +2,25 @@
 const links = [{
   label: 'Profile',
   avatar: {
-    src: 'https://avatars.githubusercontent.com/u/739984?v=4'
+    src: 'https://avatars.githubusercontent.com/u/100514868?v=4'
   },
-  badge: 100
+  badge: 'Černoch Martin'
 }, {
-  label: 'Installation',
+  label: 'Home',
   icon: 'i-heroicons-home',
-  to: '/getting-started/installation'
+  to: '/'
 }, {
-  label: 'Horizontal Navigation',
+  label: 'Test',
   icon: 'i-heroicons-chart-bar',
   to: '/test'
 }, {
-  label: 'Command Palette',
+  label: 'Installation',
   icon: 'i-heroicons-command-line',
-  to: '/components/command-palette'
+  to: '/installation'
+}, {
+  label: 'Documentation',
+  icon: 'i-heroicons-document',
+  to: '/docs'
 }]
 </script>
 

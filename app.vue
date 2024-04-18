@@ -1,4 +1,7 @@
 <template>
   <TheNav />
-  <NuxtPage />
+  <UContainer>
+    <NuxtPage />
+  </UContainer>
+  <TheFooter />
 </template>
