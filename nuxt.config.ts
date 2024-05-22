@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxt/ui'],
+  modules: ['@nuxt/ui', '@nuxtjs/supabase'],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -9,10 +9,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE
+      supabaseKey: process.env.SUPABASE_KEY,
+      supabaseUrl: process.env.SUPABASE_URL,
     }
   },
   app: {
@@ -27,4 +25,7 @@ export default defineNuxtConfig({
       }
     }
   },
+  supabase: {
+    redirect: false,
+  }
 })

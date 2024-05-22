@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const links = [{
-  label: 'Profile',
-  avatar: {
-    src: 'https://avatars.githubusercontent.com/u/100514868?v=4'
-  },
+const links = [[{
   badge: 'Černoch Martin'
 }, {
   label: 'Home',
@@ -21,7 +17,13 @@ const links = [{
   label: 'Documentation',
   icon: 'i-heroicons-document',
   to: '/docs'
-}]
+}], [
+  {
+    label: 'Login',
+    icon: 'i-heroicons-arrow-right-end-on-rectangle',
+    to: '/login'
+  }
+]]
 </script>
 
 <template>
