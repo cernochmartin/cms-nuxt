@@ -19,6 +19,7 @@ async function onSubmit(type: string) {
         })
         .then(() => {
             navigateTo('/')
+            window.location.reload()
         })
         .catch((error) => {
             console.error('error', error)

@@ -3,11 +3,14 @@ const client = useSupabaseClient()
 
 const { data: { user } } = await client.auth.getUser()
 
-const links = [[user?.email ? {
+const links = [[user ? {
   badge: user.email,
   icon: 'i-heroicons-user',
   to: '/profile'
-} : {},
+} : {
+  badge: 'Guest',
+  icon: 'i-heroicons-user',
+},
 {
   label: 'Home',
   icon: 'i-heroicons-home',
@@ -24,21 +27,24 @@ const links = [[user?.email ? {
   label: 'Documentation',
   icon: 'i-heroicons-document',
   to: '/docs'
-}], [
-  {
-    label: 'Login',
-    icon: 'i-heroicons-arrow-right-end-on-rectangle',
-    to: '/login'
-  }]]
-
-// if (user?.email) {
-//   links[1].forEach((item: any) => {
-//     item.push({
-//       label: 'Logout',
-//       icon: 'i-heroicons-arrow-right-end-on-rectangle'
-//     })
-//   })
-// }
+}], [user ? {
+  label: 'Logout',
+  icon: 'i-heroicons-arrow-right-end-on-rectangle',
+  click: async () => {
+    await client.auth.signOut()
+      .then(() => {
+        navigateTo('/')
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.error('error', error)
+      })
+  }
+} : {
+  label: 'Login',
+  icon: 'i-heroicons-arrow-right-end-on-rectangle',
+  to: '/login'
+}]]
 </script>
 
 <template>
