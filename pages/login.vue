@@ -17,6 +17,12 @@ async function onSubmit(type: string) {
             email: state.email,
             password: state.password
         })
+        .then(() => {
+            navigateTo('/')
+        })
+        .catch((error) => {
+            console.error('error', error)
+        })
     }
     else if (type === 'register') {
         await client.auth.signUp({

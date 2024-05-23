@@ -1,7 +1,14 @@
 <script setup lang="ts">
-const links = [[{
-  badge: 'Černoch Martin'
-}, {
+const client = useSupabaseClient()
+
+const { data: { user } } = await client.auth.getUser()
+
+const links = [[user?.email ? {
+  badge: user.email,
+  icon: 'i-heroicons-user',
+  to: '/profile'
+} : {},
+{
   label: 'Home',
   icon: 'i-heroicons-home',
   to: '/'
@@ -22,11 +29,18 @@ const links = [[{
     label: 'Login',
     icon: 'i-heroicons-arrow-right-end-on-rectangle',
     to: '/login'
-  }
-]]
+  }]]
+
+// if (user?.email) {
+//   links[1].forEach((item: any) => {
+//     item.push({
+//       label: 'Logout',
+//       icon: 'i-heroicons-arrow-right-end-on-rectangle'
+//     })
+//   })
+// }
 </script>
 
 <template>
   <UHorizontalNavigation :links="links" class="border-b border-gray-200 dark:border-gray-800" />
 </template>
-

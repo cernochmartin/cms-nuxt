@@ -12,7 +12,5 @@ const links = [[{
 
 <template>
     <UDivider label="Nuxt CMS" />
-    <UContainer>
-        <UHorizontalNavigation :links="links" class="border-b border-gray-200 dark:border-gray-800" />
-    </UContainer>
+    <UHorizontalNavigation :links="links" class="border-b border-gray-200 dark:border-gray-800 px-[320px]" />
 </template>
