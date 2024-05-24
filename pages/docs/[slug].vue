@@ -3,11 +3,11 @@ const client = useSupabaseClient()
 
 const path = useRoute().path.split('/').pop()
 
-const { data } = await client.from('docs').select().eq('test-222', path)
+const { data } = await client.from('docs').select().eq('slug', path)
 </script>
 
 <template>
-    <UContainer>
-        <h1>{{ data }}</h1>
-    </UContainer>
+    <div v-for="item in data">
+        <h1>{{ item.title }}</h1>
+    </div>
 </template>

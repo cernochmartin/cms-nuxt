@@ -15,7 +15,8 @@ async function onSubmit() {
         .insert([
             {
                 title: state.title,
-                perex: state.perex
+                perex: state.perex,
+                slug: state.title.toLowerCase().replace(/ /g, '-')
             }
         ])
 }

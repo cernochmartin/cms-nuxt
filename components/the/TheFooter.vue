@@ -1,6 +1,8 @@
 <script setup lang="ts">
+const year = new Date().getFullYear()
+
 const links = [[{
-    label: 'MIT licensed',
+    label: `${year} - MIT licensed`,
     to: 'https://github.com/cernochmartin/nuxt-cms/blob/main/LICENSE'
 }],
 [{

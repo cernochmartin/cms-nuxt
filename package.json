@@ -12,11 +12,11 @@
   "dependencies": {
     "@nuxt/ui": "^2.15.2",
     "@nuxtjs/supabase": "^1.2.2",
-    "nuxt": "^3.11.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7"
+    "@types/node": "^20.12.7",
+    "nuxt": "^3.11.2"
   }
 }
