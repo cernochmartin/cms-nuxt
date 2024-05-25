@@ -11,19 +11,20 @@ const state = reactive<{
 
 const isLogin = ref<boolean>(true)
 
+const message = ref<string>('')
+
 async function onSubmit(type: string) {
     if (type === 'login') {
-        await client.auth.signInWithPassword({
+        const { error } = await client.auth.signInWithPassword({
             email: state.email,
             password: state.password
         })
-        .then(() => {
-            navigateTo('/')
-            window.location.reload()
-        })
-        .catch((error) => {
-            console.error('error', error)
-        })
+        if (error) {
+            message.value = error.message
+        }
+        else {
+            navigateTo('/').then(() => window.location.reload())
+        }
     }
     else if (type === 'register') {
         await client.auth.signUp({
@@ -35,19 +36,25 @@ async function onSubmit(type: string) {
 </script>
 
 <template>
-    <UFormGroup label="Email" name="email">
-        <UInput v-model="state.email" />
-    </UFormGroup>
+    <section class="mt-32 flex flex-col gap-6">
+        <UFormGroup label="Email" name="email">
+            <UInput v-model="state.email" />
+        </UFormGroup>
 
-    <UFormGroup label="Password" name="password">
-        <UInput v-model="state.password" type="password" />
-    </UFormGroup>
+        <UFormGroup label="Password" name="password">
+            <UInput v-model="state.password" type="password" />
+        </UFormGroup>
 
-    <UButton @click="onSubmit(isLogin ? 'login' : 'register')" type="submit">
-        Submit
-    </UButton>
+        <div class="flex gap-6">
+            <UButton @click="onSubmit(isLogin ? 'login' : 'register')" type="submit">
+                Submit
+            </UButton>
 
-    <UButton @click="isLogin = !isLogin" type="submit">
-        Want to {{ isLogin ? 'register' : 'login' }}?
-    </UButton>
+            <UButton @click="isLogin = !isLogin" type="submit">
+                Want to {{ isLogin ? 'register' : 'login' }}?
+            </UButton>
+        </div>
+
+        <p v-if="message" class="text-red-500">{{ message }}</p>
+    </section>
 </template>
