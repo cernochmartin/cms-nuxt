@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Nuxt CMS | Login',
+  description: 'A CMS built with Nuxt 3 and Supabase',
+})
+
 const client = useSupabaseClient()
 
 const state = reactive<{
@@ -36,7 +41,7 @@ async function onSubmit(type: string) {
 </script>
 
 <template>
-    <section class="mt-32 flex flex-col gap-6">
+    <section class="mt-24 flex flex-col gap-6">
         <UFormGroup label="Email" name="email">
             <UInput v-model="state.email" />
         </UFormGroup>
