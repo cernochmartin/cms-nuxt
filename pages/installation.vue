@@ -32,7 +32,7 @@ useSeoMeta({
                 installation script, for example with npm, run:
                 <code>npm install</code>.
             </li>
-            <li>Next, head over to the Supabase <ULink to="https://supabase.com" active-class="text-primary"
+            <li>Next, head over to the <ULink to="https://supabase.com" active-class="text-primary"
                     target="_blank"
                     inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
                     Supabase website</ULink> and create a project. Once you create a project, pick the project URL and
