@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Nuxt CMS | Profile',
+  description: 'A CMS built with Nuxt 3 and Supabase',
+})
+
 const client = useSupabaseClient()
 
 const state = reactive<{
