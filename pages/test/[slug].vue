@@ -1,4 +1,9 @@
 <script setup lang="ts">
+interface DataType {
+    title: string
+    slug: string
+}
+
 const client = useSupabaseClient()
 
 const path = useRoute().path.split('/').pop()
