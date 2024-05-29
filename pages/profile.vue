@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Nuxt CMS | Profile',
-  description: 'A CMS built with Nuxt 3 and Supabase',
+    title: 'Nuxt CMS | Profile',
+    description: 'A CMS built with Nuxt 3 and Supabase',
 })
 
 const client = useSupabaseClient()
@@ -27,15 +27,21 @@ async function onSubmit() {
 </script>
 
 <template>
-    <UFormGroup label="New password" name="password">
-        <UInput v-model="state.newPassword" type="password" />
-    </UFormGroup>
+    <section class="my-24">
 
-    <UFormGroup label="Password check" name="password">
-        <UInput v-model="state.newPasswordCheck" type="password" />
-    </UFormGroup>
+        <UFormGroup label="New password" name="password">
+            <UInput v-model="state.newPassword" type="password" />
+        </UFormGroup>
 
-    <UButton @click="onSubmit()" type="submit">
-        Submit
-    </UButton>
+        <UFormGroup label="Password check" name="password">
+            <UInput v-model="state.newPasswordCheck" type="password" />
+        </UFormGroup>
+
+        <div>
+            <UButton @click="onSubmit()" type="submit">
+                Submit
+            </UButton>
+        </div>
+
+    </section>
 </template>

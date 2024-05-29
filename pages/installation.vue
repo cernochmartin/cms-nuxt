@@ -6,7 +6,7 @@ useSeoMeta({
 </script>
 
 <template>
-    <section class="mt-24">
+    <section class="my-24">
 
         <h2 class="text-center">Installation and setup</h2>
         <ul class="mt-6">

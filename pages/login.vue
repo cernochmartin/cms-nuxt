@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Nuxt CMS | Login',
-  description: 'A CMS built with Nuxt 3 and Supabase',
+    title: 'Nuxt CMS | Login',
+    description: 'A CMS built with Nuxt 3 and Supabase',
 })
 
 const client = useSupabaseClient()
@@ -41,7 +41,10 @@ async function onSubmit(type: string) {
 </script>
 
 <template>
-    <section class="mt-24 flex flex-col gap-6">
+    <section class="my-24 flex flex-col gap-6">
+
+        <h2 class="text-center">{{ isLogin ? 'Login' : 'Register' }}</h2>
+
         <UFormGroup label="Email" name="email">
             <UInput v-model="state.email" />
         </UFormGroup>
@@ -50,16 +53,15 @@ async function onSubmit(type: string) {
             <UInput v-model="state.password" type="password" />
         </UFormGroup>
 
-        <div class="flex gap-6">
-            <UButton @click="onSubmit(isLogin ? 'login' : 'register')" type="submit">
+            <UButton @click="onSubmit(isLogin ? 'login' : 'register')" block type="submit">
                 Submit
             </UButton>
 
-            <UButton @click="isLogin = !isLogin" type="submit">
+            <UButton @click="isLogin = !isLogin" block type="submit">
                 Want to {{ isLogin ? 'register' : 'login' }}?
             </UButton>
-        </div>
 
         <p v-if="message" class="text-red-500">{{ message }}</p>
+
     </section>
 </template>
