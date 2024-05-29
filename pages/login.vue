@@ -16,7 +16,9 @@ const state = reactive<{
 
 const isLogin = ref<boolean>(true)
 
-const message = ref<string>('')
+const message = ref<string | undefined>('')
+
+const isOpen = ref<boolean>(false)
 
 async function onSubmit(type: string) {
     if (type === 'login') {
@@ -32,10 +34,17 @@ async function onSubmit(type: string) {
         }
     }
     else if (type === 'register') {
-        await client.auth.signUp({
+        const { data, error } = await client.auth.signUp({
             email: state.email,
             password: state.password
         })
+        if (error) {
+            message.value = error.message
+        }
+        else {
+            isOpen.value = true
+            console.log(data)
+        }
     }
 }
 </script>
@@ -53,15 +62,29 @@ async function onSubmit(type: string) {
             <UInput v-model="state.password" type="password" />
         </UFormGroup>
 
-            <UButton @click="onSubmit(isLogin ? 'login' : 'register')" block type="submit">
-                Submit
-            </UButton>
+        <UButton @click="onSubmit(isLogin ? 'login' : 'register')" block type="submit">
+            Submit
+        </UButton>
 
-            <UButton @click="isLogin = !isLogin" block type="submit">
-                Want to {{ isLogin ? 'register' : 'login' }}?
-            </UButton>
+        <UButton @click="isLogin = !isLogin; message = undefined" block type="submit">
+            Want to {{ isLogin ? 'register' : 'login' }}?
+        </UButton>
 
-        <p v-if="message" class="text-red-500">{{ message }}</p>
+        <p v-if="message" class="text-center text-red-500">{{ message }}</p>
 
+        <div @click="isOpen = true">click</div>
     </section>
+
+    <UModal v-model="isOpen">
+        <div class="p-4 text-center min-h-48 flex items-center justify-center">
+            <div>
+                <h3>
+                    You have successfully registered
+                </h3>
+                <p>
+                    Please check your email to verify your account
+                </p>
+            </div>
+        </div>
+    </UModal>
 </template>

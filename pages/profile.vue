@@ -14,6 +14,8 @@ const state = reactive<{
     newPasswordCheck: ''
 })
 
+const message = ref<string>('')
+
 async function onSubmit() {
     if (state.newPassword === state.newPasswordCheck && state.newPassword.length > 0) {
         await client.auth.updateUser({
@@ -21,13 +23,15 @@ async function onSubmit() {
         })
     }
     else {
-        console.log('Passwords do not match')
+        message.value = 'Passwords do not match'
     }
 }
 </script>
 
 <template>
-    <section class="my-24">
+    <section class="my-24 flex flex-col gap-6">
+
+        <h2 class="text-center">Profile password change</h2>
 
         <UFormGroup label="New password" name="password">
             <UInput v-model="state.newPassword" type="password" />
@@ -37,11 +41,10 @@ async function onSubmit() {
             <UInput v-model="state.newPasswordCheck" type="password" />
         </UFormGroup>
 
-        <div>
-            <UButton @click="onSubmit()" type="submit">
-                Submit
-            </UButton>
-        </div>
+        <UButton @click="onSubmit()" block type="submit">
+            Submit
+        </UButton>
 
+        <p class="text-center text-red-500">{{ message }}</p>
     </section>
 </template>

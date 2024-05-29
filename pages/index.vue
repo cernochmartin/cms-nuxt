@@ -8,7 +8,7 @@ useSeoMeta({
 <template>
   <section class="my-24">
 
-    <h1>Nuxt CMS</h1>
+    <h1 class="text-center">Nuxt CMS</h1>
 
   </section>
 </template>

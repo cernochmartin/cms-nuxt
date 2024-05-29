@@ -25,7 +25,7 @@ function addSection() {
 async function onSubmit() {
     await client
         .from('test')
-        .insert(
+        .insert([
             {
                 title: state.title,
                 perex: state.perex,
@@ -33,29 +33,29 @@ async function onSubmit() {
                 subtitle_one: state.subtitleOne,
                 text_section_one: state.textSectionOne
             }
-        )
+        ])
 }
 </script>
 
 <template>
     <section class="my-24 flex flex-col gap-6"">
 
-        <h2 class=" text-center">Test creating article</h2>
+        <h2 class="text-center">Test creating article</h2>
 
-        <UFormGroup label="Title" name="title">
-            <UInput name="input" v-model="state.title" />
+        <UFormGroup label="Title">
+            <UInput v-model="state.title" />
         </UFormGroup>
 
-        <UFormGroup label="Perex" name="perex">
-            <UTextarea name="textarea" v-model="state.perex" />
+        <UFormGroup label="Perex">
+            <UTextarea v-model="state.perex" />
         </UFormGroup>
 
-        <UFormGroup label="Subtitle 1" name="title">
-            <UInput name="input" v-model="state.subtitleOne" />
+        <UFormGroup label="Subtitle 1">
+            <UInput v-model="state.subtitleOne" />
         </UFormGroup>
 
-        <UFormGroup label="Text section 1" name="perex">
-            <UTextarea name="textarea" v-model="state.textSectionOne" />
+        <UFormGroup label="Text section 1">
+            <UTextarea v-model="state.textSectionOne" />
         </UFormGroup>
 
         <div class="flex justify-end">
