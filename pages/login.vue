@@ -16,7 +16,7 @@ const state = reactive<{
 
 const isLogin = ref<boolean>(true)
 
-const message = ref<string | undefined>('')
+const message = ref<string | null>('')
 
 const isOpen = ref<boolean>(false)
 
@@ -30,7 +30,10 @@ async function onSubmit(type: string) {
             message.value = error.message
         }
         else {
-            navigateTo('/').then(() => window.location.reload())
+            const navigationResult = navigateTo('/')
+            if (navigationResult instanceof Promise) {
+                navigationResult.then(() => window.location.reload())
+            }
         }
     }
     else if (type === 'register') {
@@ -66,7 +69,7 @@ async function onSubmit(type: string) {
             Submit
         </UButton>
 
-        <UButton @click="isLogin = !isLogin; message = undefined" block type="submit">
+        <UButton @click="isLogin = !isLogin; message = null" block type="submit">
             Want to {{ isLogin ? 'register' : 'login' }}?
         </UButton>
 

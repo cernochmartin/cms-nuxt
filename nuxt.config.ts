@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxt/ui', '@nuxtjs/supabase'],
+  modules: ['@nuxt/ui', ['@nuxtjs/supabase', { redirect: false }]],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -24,8 +24,5 @@ export default defineNuxtConfig({
         lang: 'cs-CZ'
       }
     }
-  },
-  supabase: {
-    redirect: false,
   }
 })
