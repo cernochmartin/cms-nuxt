@@ -37,7 +37,7 @@ async function onSubmit(type: string) {
         }
     }
     else if (type === 'register') {
-        const { data, error } = await client.auth.signUp({
+        const { error } = await client.auth.signUp({
             email: state.email,
             password: state.password
         })
@@ -46,7 +46,6 @@ async function onSubmit(type: string) {
         }
         else {
             isOpen.value = true
-            console.log(data)
         }
     }
 }
@@ -84,8 +83,8 @@ async function onSubmit(type: string) {
                 <h3>
                     You have successfully registered
                 </h3>
-                <p>
-                    Please check your email to verify your account
+                <p class="mt-6">
+                    Please check your email {{ state.email }} to verify your account
                 </p>
             </div>
         </div>

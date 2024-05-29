@@ -6,13 +6,15 @@ interface DataType {
 
 const client = useSupabaseClient()
 
-const path = useRoute().path.split('/').pop()
+const slug = useRoute().path.split('/').pop() || ''
 
-const { data } = await client.from('docs').select().eq('slug', path)
+const { data } = await client.from('docs').select().eq('slug', slug)
+
+const fetchedItems = data as DataType[]
 </script>
 
 <template>
-    <div v-for="item in data">
+    <div v-for="item in fetchedItems">
         <h1>{{ item.title }}</h1>
     </div>
 </template>

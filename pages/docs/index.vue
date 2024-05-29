@@ -7,11 +7,11 @@ useSeoMeta({
 const links: any[] = [{
     label: 'Installation',
     icon: 'i-heroicons-home',
-    to: '/getting-started/installation'
+    to: '/docs/overview'
 }, {
     label: 'Installation',
     icon: 'i-heroicons-home',
-    to: '/getting-started/installation'
+    to: '/docs/'
 },]
 </script>
 
