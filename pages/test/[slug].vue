@@ -8,7 +8,7 @@ const client = useSupabaseClient()
 
 const slug = useRoute().path.split('/').pop() || ''
 
-const { data } = await client.from('docs').select().eq('slug', slug)
+const { data } = await client.from('test').select().eq('slug', slug)
 
 const fetchedItems = data as DataType[]
 </script>

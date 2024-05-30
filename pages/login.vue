@@ -83,7 +83,6 @@ async function onSubmit(type: string) {
 
         <p v-if="message" class="text-center text-red-500">{{ message }}</p>
 
-        <div @click="isOpen = true">click</div>
     </section>
 
     <UModal v-model="isOpen">
