@@ -14,14 +14,23 @@ const state = reactive<{
     password: ''
 })
 
+const emailPattern = /[^\s@]+@[^\s@]+\.[^\s@]+/
+
+const emailValidation = computed(() => {
+    return emailPattern.test(state.email)
+})
+
 const isLogin = ref<boolean>(true)
 
-const message = ref<string | null>('')
+const message = ref<string>('')
 
 const isOpen = ref<boolean>(false)
 
 async function onSubmit(type: string) {
-    if (type === 'login') {
+    if (!emailValidation.value) {
+         message.value = 'Please enter a valid email address'
+    }
+    else if (type === 'login') {
         const { error } = await client.auth.signInWithPassword({
             email: state.email,
             password: state.password
@@ -68,7 +77,7 @@ async function onSubmit(type: string) {
             Submit
         </UButton>
 
-        <UButton @click="isLogin = !isLogin; message = null" block type="submit">
+        <UButton @click="isLogin = !isLogin; message = ''" block type="submit">
             Want to {{ isLogin ? 'register' : 'login' }}?
         </UButton>
 
