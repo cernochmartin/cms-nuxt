@@ -16,10 +16,14 @@ const state = reactive<{
 
 const message = ref<string>('')
 
+const isOpen = ref<boolean>(false)
+
 async function onSubmit() {
     if (state.newPassword === state.newPasswordCheck && state.newPassword.length > 0) {
         await client.auth.updateUser({
             password: state.newPassword
+        }).then(() => {
+            isOpen.value = true
         })
     }
     else {
@@ -47,4 +51,14 @@ async function onSubmit() {
 
         <p class="text-center text-red-500">{{ message }}</p>
     </section>
+
+    <UModal v-model="isOpen">
+        <div class="p-6 text-center min-h-48 flex items-center justify-center">
+            <div>
+                <h3>
+                    You have successfully changed your password
+                </h3>
+            </div>
+        </div>
+    </UModal>
 </template>

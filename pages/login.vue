@@ -86,7 +86,7 @@ async function onSubmit(type: string) {
     </section>
 
     <UModal v-model="isOpen">
-        <div class="p-4 text-center min-h-48 flex items-center justify-center">
+        <div class="p-6 text-center min-h-48 flex items-center justify-center">
             <div>
                 <h3>
                     You have successfully registered
