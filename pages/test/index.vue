@@ -6,22 +6,26 @@ useSeoMeta({
 
 const client = useSupabaseClient()
 
+const message = ref<string>('')
+
 const isOpen = ref<boolean>(false)
 
 const state = reactive<{
     title: string
     perex: string
-    subtitleOne: string
-    textSectionOne: string
+    sections: Array<{ subtitle: string, text: string }>
 }>({
     title: '',
     perex: '',
-    subtitleOne: '',
-    textSectionOne: ''
+    sections: []
 })
 
 function addSection() {
-    console.log('Add section')
+    state.sections.push({
+        subtitle: '',
+        text: ''
+    })
+    message.value = ''
 }
 
 const slug = computed(() => {
@@ -29,24 +33,28 @@ const slug = computed(() => {
 })
 
 async function onSubmit() {
-    await client
-        .from('test')
-        .insert([
-            {
-                title: state.title,
-                perex: state.perex,
-                slug: slug.value,
-                subtitle_one: state.subtitleOne,
-                text_section_one: state.textSectionOne
-            }
-        ]).then(() => {
-            isOpen.value = true
-        })
+    if (state.title.length === 0 || state.perex.length === 0) {
+        message.value = 'Please fill in all the required fields'
+    }
+    else {
+        await client
+            .from('test')
+            .insert([
+                {
+                    title: state.title,
+                    perex: state.perex,
+                    slug: slug.value,
+                    sections: state.sections
+                }
+            ]).then(() => {
+                isOpen.value = true
+            })
+    }
 }
 </script>
 
 <template>
-    <section class="my-24 flex flex-col gap-6"">
+    <section class="my-24 flex flex-col gap-6">
 
         <h2 class=" text-center">Test creating article</h2>
 
@@ -58,21 +66,28 @@ async function onSubmit() {
             <UTextarea v-model="state.perex" />
         </UFormGroup>
 
-        <UFormGroup label="Subtitle 1">
-            <UInput v-model="state.subtitleOne" />
-        </UFormGroup>
+        <div v-for="(section, index) in state.sections" :key="index" class="flex flex-col gap-6">
+            <UFormGroup :label="'Subtitle ' + (index + 1)">
+                <UInput v-model="section.subtitle" />
+            </UFormGroup>
 
-        <UFormGroup label="Text section 1">
-            <UTextarea v-model="state.textSectionOne" />
-        </UFormGroup>
+            <UFormGroup :label="'Text section ' + (index + 1)">
+                <UTextarea v-model="section.text" />
+            </UFormGroup>
+        </div>
 
         <div class="flex justify-end">
-            <UButton @click="addSection()" icon="i-heroicons-plus" size="lg" color="primary" square variant="solid" />
+            <UTooltip text="Add new section of the article">
+                <UButton @click="addSection()" icon="i-heroicons-plus" size="lg" color="primary" square
+                    variant="solid" />
+            </UTooltip>
         </div>
 
         <UButton @click="onSubmit()" block type="submit">
             Submit
         </UButton>
+
+        <p v-if="message" class="text-center text-red-500">{{ message }}</p>
 
     </section>
 
@@ -83,11 +98,10 @@ async function onSubmit() {
                     You have successfully created a new article
                 </h3>
                 <p class="mt-6">
-                    You can check your article {{ state.title }} here: <ULink
-                        :to="`/test/${slug}`"
+                    You can check your article {{ state.title }} here: <ULink :to="`/test/${slug}`"
                         active-class="text-primary" target="_blank"
                         inactive-class="whitespace-nowrap text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-                     {{ slug }}</ULink>
+                        {{ slug }}</ULink>
                 </p>
             </div>
         </div>
