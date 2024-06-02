@@ -55,7 +55,7 @@ const isReplyActive = ref<boolean>(false)
             <p>{{ section.text }}</p>
         </div>
 
-        <div v-if="item.comments_allowed === true"  class="flex flex-col gap-6 mt-24">
+        <div v-if="item.comments_allowed === true" class="flex flex-col gap-6 mt-24">
             <h2 class="text-center">Comments</h2>
             <UFormGroup label="Leave your thoughts">
                 <UTextarea v-model="state.comments[0].comment" />
@@ -76,7 +76,7 @@ const isReplyActive = ref<boolean>(false)
                 <UFormGroup>
                     <UTextarea v-model="state.comments[0].reply" />
                 </UFormGroup>
-                
+
                 <UButton @click="onSubmit()" block type="submit">
                     Submit
                 </UButton>

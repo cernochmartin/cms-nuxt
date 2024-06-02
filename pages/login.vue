@@ -20,9 +20,9 @@ const emailValidation = computed(() => {
     return emailPattern.test(state.email)
 })
 
-const isLogin = ref<boolean>(true)
-
 const message = ref<string>('')
+
+const isLogin = ref<boolean>(true)
 
 const isOpen = ref<boolean>(false)
 
