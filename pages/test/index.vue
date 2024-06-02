@@ -14,10 +14,12 @@ const state = reactive<{
     title: string
     perex: string
     sections: Array<{ subtitle: string, text: string }>
+    allowComments: boolean
 }>({
     title: '',
     perex: '',
-    sections: []
+    sections: [],
+    allowComments: true
 })
 
 function addSection() {
@@ -44,19 +46,31 @@ async function onSubmit() {
                     title: state.title,
                     perex: state.perex,
                     slug: slug.value,
-                    sections: state.sections
+                    sections: state.sections,
+                    comments_allowed: state.allowComments
                 }
             ]).then(() => {
                 isOpen.value = true
             })
     }
 }
+
+const { data } = await client.from('test').select()
+
+const links: any[] = []
+
+data?.forEach((item: any) => {
+    links.push({ label: item.title, icon: 'i-heroicons-book-open', to: `/test/${item.slug}` })
+})
 </script>
 
 <template>
+
     <section class="my-24 flex flex-col gap-6">
 
-        <h2 class=" text-center">Test creating article</h2>
+        <UVerticalNavigation :links="links" />
+
+        <h2 class="text-center">Test creating article</h2>
 
         <UFormGroup label="Title">
             <UInput v-model="state.title" />
@@ -77,10 +91,15 @@ async function onSubmit() {
         </div>
 
         <div class="flex justify-end">
-            <UTooltip text="Add new section of the article">
-                <UButton @click="addSection()" icon="i-heroicons-plus" size="lg" color="primary" square
-                    variant="solid" />
-            </UTooltip>
+            <div class="flex gap-6 items-center">
+                <UTooltip :text="state.allowComments ? 'Comments allowed' : 'Comments not allowed'">
+                    <UToggle v-model="state.allowComments" />
+                </UTooltip>
+                <UTooltip text="Add new section of the article">
+                    <UButton @click="addSection()" icon="i-heroicons-plus" size="lg" color="primary" square
+                        variant="solid" />
+                </UTooltip>
+            </div>
         </div>
 
         <UButton @click="onSubmit()" block type="submit">
