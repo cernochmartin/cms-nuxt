@@ -72,11 +72,11 @@ data?.forEach((item: any) => {
 
         <h2 class="text-center">Test creating article</h2>
 
-        <UFormGroup label="Title">
+        <UFormGroup label="Title*">
             <UInput v-model="state.title" />
         </UFormGroup>
 
-        <UFormGroup label="Perex">
+        <UFormGroup label="Perex*">
             <UTextarea v-model="state.perex" />
         </UFormGroup>
 
