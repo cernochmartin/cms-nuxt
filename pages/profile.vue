@@ -30,6 +30,19 @@ async function onSubmit() {
         message.value = 'Passwords do not match'
     }
 }
+
+async function onLogin() {
+    const { error } = await client.auth.signOut()
+    if (error) {
+        message.value = error.message
+    }
+    else {
+        const navigationResult = navigateTo('/login')
+        if (navigationResult instanceof Promise) {
+            navigationResult.then(() => window.location.reload())
+        }
+    }
+}
 </script>
 
 <template>
@@ -58,6 +71,9 @@ async function onSubmit() {
                 <h3>
                     You have successfully changed your password
                 </h3>
+                <UButton @click="onLogin()" block type="submit" class="mt-6">
+                    Login again
+                </UButton>
             </div>
         </div>
     </UModal>

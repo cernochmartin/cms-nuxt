@@ -6,6 +6,8 @@ useSeoMeta({
 
 const client = useSupabaseClient()
 
+const { data: { user } } = await client.auth.getUser()
+
 const message = ref<string>('')
 
 const isOpen = ref<boolean>(false)
@@ -47,7 +49,8 @@ async function onSubmit() {
                     perex: state.perex,
                     slug: slug.value,
                     sections: state.sections,
-                    comments_allowed: state.allowComments
+                    comments_allowed: state.allowComments,
+                    author: user?.email
                 }
             ]).then(() => {
                 isOpen.value = true
@@ -66,7 +69,22 @@ data?.forEach((item: any) => {
 
 <template>
 
-    <section class="my-24 flex flex-col gap-6">
+    <section v-if="!user" class="flex flex-col gap-6 h-[100vh] justify-center items-center text-center">
+
+        <div>
+            <h2>Ooops...</h2>
+            <h3>You should be logged in before creating an article</h3>
+        </div>
+
+        <div class="md:w-[540px]">
+            <UButton to="/login" block type="submit">
+                Go to login page
+            </UButton>
+        </div>
+
+    </section>
+
+    <section v-else class="my-24 flex flex-col gap-6">
 
         <UVerticalNavigation :links="links" />
 

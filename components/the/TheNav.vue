@@ -16,18 +16,20 @@ const links = [[user ? {
   icon: 'i-heroicons-home',
   to: '/'
 }, {
-  label: 'Test',
+  label: 'Test creating article',
   icon: 'i-heroicons-chart-bar',
   to: '/test'
 }, {
   label: 'Installation',
   icon: 'i-heroicons-command-line',
   to: '/installation'
-}, {
-  label: 'Documentation',
-  icon: 'i-heroicons-document',
-  to: '/docs'
-}], [user ? {
+},
+//  {
+  // label: 'Documentation',
+  // icon: 'i-heroicons-document',
+  // to: '/docs'
+// }
+], [user ? {
   label: 'Logout',
   icon: 'i-heroicons-arrow-right-end-on-rectangle',
   click: async () => {

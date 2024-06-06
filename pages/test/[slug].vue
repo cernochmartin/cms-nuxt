@@ -4,8 +4,9 @@ interface DataType {
     slug: string
     perex: string
     sections: Array<{ subtitle: string, text: string }>
-    comments: Array<{ comment: string, reply: string }>
+    comments: Array<{ comment: string, reply: Array<{ name: string, message: string }> }>
     comments_allowed: boolean
+    author: string
 }
 
 const client = useSupabaseClient()
@@ -22,12 +23,12 @@ useSeoMeta({
 })
 
 const state = reactive<{
-    comments: Array<{ comment: string, reply: string }>
+    comments: Array<{ comment: string, reply: Array<{ name: string, message: string }> }>
 }>({
     comments: [
         {
             comment: '',
-            reply: ''
+            reply: []
         }
     ]
 })
@@ -43,6 +44,7 @@ const isReplyActive = ref<boolean>(false)
 </script>
 
 <template>
+
     <section v-for="item in fetchedItems" class="my-24">
 
         <div class="flex flex-col gap-6">
@@ -53,6 +55,13 @@ const isReplyActive = ref<boolean>(false)
         <div v-for="section in item.sections" class="mt-12 flex flex-col gap-6">
             <h3 class="text-center">{{ section.subtitle }}</h3>
             <p>{{ section.text }}</p>
+        </div>
+
+        <div class="mt-12">
+            <ULink :to="`mailto:${item.author}`" active-class="text-primary" target="_blank"
+                inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                {{ item.author }}
+            </ULink>
         </div>
 
         <div v-if="item.comments_allowed === true" class="flex flex-col gap-6 mt-24">
@@ -86,4 +95,5 @@ const isReplyActive = ref<boolean>(false)
         </div>
 
     </section>
+
 </template>
