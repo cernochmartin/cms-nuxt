@@ -28,7 +28,12 @@ const state = reactive<{
     comments: [
         {
             comment: '',
-            reply: []
+            reply: [
+                {
+                    name: '',
+                    message: ''
+                }
+            ]
         }
     ]
 })
@@ -85,6 +90,8 @@ const isReplyActive = ref<boolean>(false)
                 <UFormGroup>
                     <UTextarea v-model="state.comments[0].reply" />
                 </UFormGroup>
+
+                {{ state.comments[0].reply[0].message }}
 
                 <UButton @click="onSubmit()" block type="submit">
                     Submit
